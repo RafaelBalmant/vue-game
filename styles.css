@@ -1,0 +1,83 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+#app{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    font-family: 'Recursive', sans-serif;
+}
+
+.container {
+    width: 100%;
+}
+
+.card {
+    background-color: white;
+    display: flex;
+    -webkit-box-shadow: -7px 10px 15px -4px rgba(184,184,184,1);
+    -moz-box-shadow: -7px 10px 15px -4px rgba(184,184,184,1);
+    box-shadow: -7px 10px 15px -4px rgba(184,184,184,1);
+    padding: 4px;
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+
+.life-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.bar{
+    border: black 2px solid;
+    width: 200px;
+    height: 20px;
+    background-color: transparent;
+}
+
+.bar-green {
+    height: 20px;
+    background-color: green;
+    width: 100%;
+    z-index: 1000;
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.buttons button {
+    display: inline;
+    margin: 15px;
+    color: white;
+    background-color: black;
+    padding: 4px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+ul {
+    list-style: none;
+}
+
+#player-attack{
+    background-color: green;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+#moster-attack{
+    background-color: red;
+    -color: green;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}

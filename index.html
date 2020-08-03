@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Recursive:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="card">
+                <h4 style="text-align: center;">{{game.status}}</h4>
+                <div class="life-container">
+                    <div>
+                        <h4>Jogador</h4>
+                        <div class="bar">
+                            <div class="bar-green" :style="{width: player.life + '%'}"></div>
+                            <span>{{player.life}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>
+                            Monstro
+                        </h4>   
+                        <div class="bar">
+                            <div class="bar-green" :style="{width: monster.life + '%'}"></div>
+                            <span>{{monster.life}}</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button @click="attackMonster">Atacar</button>
+                    <button>Atacar</button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <template v-if="!game.winner">
+                <div class="card" >
+                    <h4 style="text-align: center;">Relatorio de batalha</h4>
+                    <div v-if="logs.attacks.length">
+                        <div v-for="attacks in logs">
+                            <div v-for="attack in attacks">
+                                <p id="moster-attack">O ataque do monstro foi de {{attack.monster}}</span>
+                                <p id="player-attack">O ataque do jogador foi de {{attack.player}}</span>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </template>
+        </div>
+    </div>
+</body>
+<script src="./app.js"></script>
+</html>
