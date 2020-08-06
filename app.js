@@ -11,20 +11,14 @@ var app = new Vue({
         monster: {
             life: 100
         },
-        logs: [
-            {
-                type: "teste",
-                value: 0
-            }
-        ]
+        logs: []
     },
     methods: {
         setLife(playerAttack, monsterAttack, type){
-            console.log(this.logs)
             const newLifePlayer = type === "attack" ? this.player.life - monsterAttack :  this.player.life - monsterAttack + playerAttack;
             const newLifeMonster = type === "attack" && this.monster.life - playerAttack || this.monster.life;
             if(newLifePlayer <= 0 || newLifeMonster <= 0){
-                 this.game.status = newLifePlayer <= 0 ?  "você perdeu amigão" : "Quente again"
+                 this.game.status = newLifePlayer <= 0 ?  "Ganhou" : "Perdeu"
                  this.player.life =  newLifePlayer <= 0 ?  0 : this.player.life;
                  return this.monster.life = newLifeMonster <= 0 ? 0 : this.monster.life;
             }
@@ -66,6 +60,12 @@ var app = new Vue({
                     
             }
 
+        },
+        restartGame(){
+            this.game.status = "start";
+            this.logs = []
+            this.player.life = 100;
+            this.monster.life = 100;
         }
     }
   })

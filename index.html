@@ -37,6 +37,9 @@
                     <template v-if="game.status === 'paused'">
                         <button @click="game.status = 'start'">Inciar o jogo</button>
                     </template>
+                    <template v-else-if="game.status === 'Ganhou' || game.status === 'Perdeu'">
+                        <button @click="restartGame">Reiniciar</button>
+                    </template>
                     <template v-else>
                         <button @click="attackMonster('normal')">Atacar</button>
                         <button @click="attackMonster('super')">Ataque especial</button>
