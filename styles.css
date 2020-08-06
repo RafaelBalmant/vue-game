@@ -47,6 +47,14 @@ html {
 }
 
 
+.bar-red {
+    height: 20px;
+    background-color: red;
+    width: 100%;
+    z-index: 1000;
+}
+
+
 .buttons {
     display: flex;
     justify-content: center;
@@ -76,6 +84,14 @@ ul {
 
 #moster-attack{
     background-color: red;
+    -color: green;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+#player-heal{
+    background-color: blue;
     -color: green;
     color: white;
     padding: 10px;

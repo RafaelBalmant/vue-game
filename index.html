@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div id="app">
         <div class="container">
@@ -17,7 +18,7 @@
                     <div>
                         <h4>Jogador</h4>
                         <div class="bar">
-                            <div class="bar-green" :style="{width: player.life + '%'}"></div>
+                            <div class="bar-green" :class="player.life < 20 && 'bar-red'" :style="{width: player.life + '%'}"></div>
                             <span>{{player.life}}</span>
                         </div>
                     </div>
@@ -26,30 +27,37 @@
                             Monstro
                         </h4>   
                         <div class="bar">
-                            <div class="bar-green" :style="{width: monster.life + '%'}"></div>
+                            <div class="bar-green" :class="monster.life < 20 && 'bar-red'" :style="{width: monster.life + '%'}"></div>
                             <span>{{monster.life}}</span>
 
                         </div>
                     </div>
                 </div>
-
                 <div class="buttons">
-                    <button @click="attackMonster">Atacar</button>
-                    <button>Atacar</button>
+                    <template v-if="game.status === 'paused'">
+                        <button @click="game.status = 'start'">Inciar o jogo</button>
+                    </template>
+                    <template v-else>
+                        <button @click="attackMonster('normal')">Atacar</button>
+                        <button @click="attackMonster('super')">Ataque especial</button>
+                        <button @click="attackMonster('heal')">Curar</button>
+                    </template>
                 </div>
             </div>
             <br>
             <br>
-            <template v-if="!game.winner">
+            <div >
+            </div>
+            <template v-if="game.status !== 'paused'">
                 <div class="card" >
                     <h4 style="text-align: center;">Relatorio de batalha</h4>
-                    <div v-if="logs.attacks.length">
-                        <div v-for="attacks in logs">
-                            <div v-for="attack in attacks">
-                                <p id="moster-attack">O ataque do monstro foi de {{attack.monster}}</span>
-                                <p id="player-attack">O ataque do jogador foi de {{attack.player}}</span>
-                            </div>
+                    <div>
+                        <div v-for="log in logs">
+                            <p v-if="log.monsterValue" id="moster-attack">O ataque do monstro foi de {{log.monsterValue}}</span>
+                            <p v-if="log.playerValue" id="player-attack">O ataque do jogador foi de {{log.playerValue}}</span>
+                            <p v-if="log.playerHeal" id="player-heal">A cura do jogador foi de {{log.playerHeal}}</span>
                         </div>
+                 
                     </div>  
                 </div>
             </template>
