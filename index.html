@@ -19,8 +19,9 @@
                         <h4>Jogador</h4>
                         <div class="bar">
                             <div class="bar-green" :class="player.life < 20 && 'bar-red'" :style="{width: player.life + '%'}"></div>
-                            <span>{{player.life}}</span>
                         </div>
+                        <span>{{player.life}}</span>
+
                     </div>
                     <div>
                         <h4>
@@ -28,16 +29,16 @@
                         </h4>   
                         <div class="bar">
                             <div class="bar-green" :class="monster.life < 20 && 'bar-red'" :style="{width: monster.life + '%'}"></div>
-                            <span>{{monster.life}}</span>
-
                         </div>
+                        <span>{{monster.life}}</span>
+
                     </div>
                 </div>
                 <div class="buttons">
                     <template v-if="game.status === 'paused'">
                         <button @click="game.status = 'start'">Inciar o jogo</button>
                     </template>
-                    <template v-else-if="game.status === 'Ganhou' || game.status === 'Perdeu'">
+                    <template v-else-if="game.status === 'Você perdeu : (' || game.status === 'Você ganhou :)'">
                         <button @click="restartGame">Reiniciar</button>
                     </template>
                     <template v-else>
@@ -60,7 +61,6 @@
                             <p v-if="log.playerValue" id="player-attack">O ataque do jogador foi de {{log.playerValue}}</span>
                             <p v-if="log.playerHeal" id="player-heal">A cura do jogador foi de {{log.playerHeal}}</span>
                         </div>
-                 
                     </div>  
                 </div>
             </template>

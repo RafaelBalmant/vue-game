@@ -13,15 +13,11 @@ var app = new Vue({
         },
         logs: []
     },
+    computed: {},
     methods: {
         setLife(playerAttack, monsterAttack, type){
             const newLifePlayer = type === "attack" ? this.player.life - monsterAttack :  this.player.life - monsterAttack + playerAttack;
             const newLifeMonster = type === "attack" && this.monster.life - playerAttack || this.monster.life;
-            if(newLifePlayer <= 0 || newLifeMonster <= 0){
-                 this.game.status = newLifePlayer <= 0 ?  "Ganhou" : "Perdeu"
-                 this.player.life =  newLifePlayer <= 0 ?  0 : this.player.life;
-                 return this.monster.life = newLifeMonster <= 0 ? 0 : this.monster.life;
-            }
             this.logs.push({
                 type: "attack",
                 monsterValue: monsterAttack,
@@ -38,9 +34,6 @@ var app = new Vue({
         },
         attackMonster(value){
             this.game.status = "in progress"
-            if(this.player.life <= 0 || this.monster.life <= 0){
-                return this.game.status = this.player.life <= 0 ?  "você perdeu amigão" : "Quente again"
-            }
             switch(value){
                 case "normal":
                     const playerAttack = Math.floor(Math.random() * 10);
@@ -55,17 +48,32 @@ var app = new Vue({
                 case "heal": 
                     const monsterHealAttack = Math.floor(Math.random() * 10);
                     const healPlayer = Math.floor(Math.random() * 10)
-                    this.setLife(healPlayer, monsterHealAttack, "heal")
-
-                    
+                    this.setLife(healPlayer, monsterHealAttack, "heal");
+                    break;
+                default:
+                    console.log("type attack null")          
             }
-
         },
         restartGame(){
             this.game.status = "start";
             this.logs = []
             this.player.life = 100;
             this.monster.life = 100;
+        }
+    },
+    watch: {
+        'player.life'(newValue, oldValue){
+            if(newValue <= 0){
+                this.game.status =  "Você perdeu : (";
+                return this.player.life =  0;
+            }
+            if(newValue >= 100) return this.player.life = 100
+        },
+        'monster.life'(newValue, oldValue){
+            if(newValue <= 0){
+                this.monster.life = 0;
+                this.game.status = "Você ganhou :)"
+            }
         }
     }
   })
