@@ -15,17 +15,15 @@ var app = new Vue({
     },
     computed: {},
     methods: {
-        setLife(playerAttack, monsterAttack, type){
+        async setLife(playerAttack, monsterAttack, type){
             const newLifePlayer = type === "attack" ? this.player.life - monsterAttack :  this.player.life - monsterAttack + playerAttack;
             const newLifeMonster = type === "attack" && this.monster.life - playerAttack || this.monster.life;
-            this.logs.push({
-                type: "attack",
+            await this.logs.push({
                 monsterValue: monsterAttack,
                 playerValue: type === "attack" && playerAttack || 0
             })
             if(type === "heal"){
-                this.logs.push({
-                    type: "heal",
+                 await this.logs.push({
                     playerHeal: playerAttack
                 })
             }
@@ -63,6 +61,7 @@ var app = new Vue({
     },
     watch: {
         'player.life'(newValue, oldValue){
+            console.log(this.logs.map(value => value))
             if(newValue <= 0){
                 this.game.status =  "Você perdeu : (";
                 return this.player.life =  0;
